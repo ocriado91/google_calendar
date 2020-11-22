@@ -29,6 +29,8 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Lint with pylint
+        pylint --ignored-modules=googleapiclient google_calendar.py 
     - name: Test with pytest
       env:
         google_credential_password: ${{ secrets.GOOGLE_CREDENTIAL_PASSWORD  }}
@@ -36,4 +38,5 @@ jobs:
         echo "Decrypting credentials file"
         gpg --quiet --batch --yes --decrypt --passphrase="$google_credential_password" --output token.pickle token.pickle.gpg
         echo "Running pytest"
+        export PYTHONPATH=src/
         pytest

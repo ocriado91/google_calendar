@@ -13,5 +13,5 @@ def test_list_calendars():
 
 def test_event_calendars():
     calendar = GoogleCalendar()
-
-    assert 'Test 1' ==  calendar.get_events()
+    calendar.get_events()
+    assert 'Test 1' in  calendar.event_list

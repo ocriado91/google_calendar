@@ -20,6 +20,7 @@ class GoogleCalendar:
 
         # Define attributes
         self.calendar_list = []
+        self.event_list = []
 
         # Init credentials
         self.get_credentials()
@@ -97,8 +98,7 @@ class GoogleCalendar:
             if not events:
                 print('No upcoming events found!')
             for event in events:
-                print(event['summary'])
-                return event['summary']
+                self.event_list.append(event['summary'])
 
 if __name__ == '__main__':
 
@@ -107,8 +107,10 @@ if __name__ == '__main__':
 
     # Get list of calendars
     calendar.get_calendars()
-    for calendar_item in calendar.calendar_list:
-        print(calendar_item['summary'])
+    for calendar_element in calendar.calendar_list:
+        print(calendar_element['summary'])
 
     # List events into primary calendar
     calendar.get_events()
+    for item in calendar.event_list:
+        print(item)
