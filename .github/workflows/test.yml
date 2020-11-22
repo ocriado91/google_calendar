@@ -1,4 +1,4 @@
-name: Python package
+name: Google Calendar Workflow
 
 on: [push]
 
@@ -34,6 +34,6 @@ jobs:
         google_credential_password: ${{ secrets.GOOGLE_CREDENTIAL_PASSWORD  }}
       run: |
         echo "Decrypting credentials file"
-        gpg --quiet --batch --yes --decrypt --passphrase="$google_credential_password" --output credentials.json credentials.json.gpg
+        gpg --quiet --batch --yes --decrypt --passphrase="$google_credential_password" --output token.pickle token.pickle.gpg
         echo "Running pytest"
         pytest
