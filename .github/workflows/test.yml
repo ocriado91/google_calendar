@@ -39,5 +39,4 @@ jobs:
         echo "Decrypting credentials file"
         gpg --quiet --batch --yes --decrypt --passphrase="$google_credential_password" --output token.pickle token.pickle.gpg
         echo "Running pytest"
-        export PYTHONPATH=src/
         pytest

@@ -1,4 +1,2 @@
-# Google Calendar
-![Google Calendar Workflow](https://github.com/ocriado91/google_calendar/workflows/Google%20Calendar%20Workflow/badge.svg)
-
+# google_calendar
 Google Calendar Library for Alfred
