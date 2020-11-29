@@ -20,6 +20,7 @@ class GoogleCalendar:
 
         # Define attributes
         self.calendar_list = []
+        self.event_list = []
 
         # Init credentials
         self.get_credentials()
@@ -56,8 +57,7 @@ class GoogleCalendar:
 
         if not calendars:
             print('No avaiable calendars')
-        for calendar_item in calendars:
-            self.calendar_list.append(calendar_item)
+        self.calendar_list = calendars
 
 
     def get_events(self,
@@ -71,21 +71,19 @@ class GoogleCalendar:
             self.get_calendars()
 
             # Check calendar by calendar
-            for calendar_item in self.calendar_list:
+            for calendar_ in self.calendar_list:
 
                 # Extract events from desired calendar
-                if calendar_item['summary'] == calendar_name:
-                    calendar_id = calendar_item['id']
+                if calendar_['summary'] == calendar_name:
+                    calendar_id = calendar_['id']
                     events_result = self.service.events().list(calendarId=calendar_id,
                                                                 timeMin=now,
                                                                 maxResults=limit,
                                                                 singleEvents=True,
                                                                 orderBy='startTime').execute()
                     events = events_result.get('items', [])
-                    if not events:
-                        print('No upcoming events found!')
                     for event in events:
-                        print(event['summary'])
+                        self.event_list = event['summary']
                     break
         else:
             events_result = self.service.events().list(calendarId='primary',
@@ -94,11 +92,9 @@ class GoogleCalendar:
                                                                 singleEvents=True,
                                                                 orderBy='startTime').execute()
             events = events_result.get('items', [])
-            if not events:
-                print('No upcoming events found!')
             for event in events:
                 print(event['summary'])
-                return event['summary']
+                self.event_list = event['summary']
 
 if __name__ == '__main__':
 
@@ -112,3 +108,5 @@ if __name__ == '__main__':
 
     # List events into primary calendar
     calendar.get_events()
+    for event_item in calendar.event_list:
+        print(event_item['summary'])
